@@ -1,0 +1,62 @@
+buildscript {
+    ext {
+        springBootVersion = '2.1.8.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+plugins {
+    id 'org.springframework.boot' version '2.1.8.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+    id 'eclipse'
+    id 'idea'
+}
+
+bootJar {
+    baseName = 'private-ipfs'
+    version = '0.1.0'
+}
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+bootRun {
+    systemProperties = System.properties
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io'}
+    }
+}
+
+dependencies {
+    compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.11.2'
+    compile('org.springframework.boot:spring-boot-starter-webflux')
+    compile('org.springframework.boot:spring-boot-starter-data-rest')
+    implementation 'com.github.ipfs:java-ipfs-api:v1.2.3'
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0'
+    compileOnly('org.projectlombok:lombok')
+    testCompile('org.springframework.boot:spring-boot-starter-test'){
+        exclude module: 'commons-logging'
+    }
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testImplementation 'io.projectreactor:reactor-test'
+}
+
+configurations {
+    compile.exclude module: 'spring-boot-starter-logging'
+}

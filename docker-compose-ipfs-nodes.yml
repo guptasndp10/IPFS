@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+
+  node-1:
+    image: ipfs/go-ipfs:latest
+    container_name: "ipfs-node-1"
+    environment:
+      LIPP2P_FORCE_PNET: '1'
+    ports:
+      - 4001:4001
+      - 9096:8080
+      - 5001:5001
+    volumes:
+      - ./ipfs-node-setup/private-network/.ipfs/swarm.key:/data/ipfs/swarm.key
+      - ./ipfs-node-setup/private-network/node1/data_dir:/data/ipfs
+    networks:
+      - mynetwork
+
+  node-2:
+    image: ipfs/go-ipfs:latest
+    container_name: "ipfs-node-2"
+    environment:
+      LIPP2P_FORCE_PNET: '1'
+    ports:
+      - 4002:4001
+      - 9097:8080
+      - 5002:5001
+    volumes:
+      - node-2:/data/ipfs
+    networks:
+      - mynetwork
+
+  node-3:
+    image: ipfs/go-ipfs:latest
+    container_name: "ipfs-node-3"
+    environment:
+      LIPP2P_FORCE_PNET: '1'
+    ports:
+      - 4003:4001
+      - 9098:8080
+      - 5003:5001
+    volumes:
+      - node-3:/data/ipfs
+    networks:
+      - mynetwork
+
+volumes:
+  node-1:
+  node-2:
+  node-3:
+
+networks:
+  mynetwork:
+    external: true

@@ -1,0 +1,80 @@
+version: '3'
+
+services:
+
+  node-1:
+    image: ipfs/go-ipfs:0.4.16
+    container_name: "ipfs-node-1"
+    build:
+      context: ./ipfs-node-setup/private-network
+    environment:
+      LIPP2P_FORCE_PNET: '1'
+    networks:
+      - mynetwork
+    ports:
+      - 4001:4001
+      - 9096:8080
+      - 5001:5001
+    volumes:
+      - ./ipfs-node-setup/private-network/.ipfs/swarm.key:/data/ipfs/swarm.key
+      - ./ipfs-node-setup/private-network/init.sh:/usr/local/bin/start_ipfs
+      - ./ipfs-node-setup/private-network/node1/staging_dir:/export
+      - ./ipfs-node-setup/private-network/node1/data_dir:/data/ipfs
+
+  node-2:
+    image: ipfs/go-ipfs:0.4.16
+    container_name: "ipfs-node-2"
+    build:
+      context: ./ipfs-node-setup/private-network
+    environment:
+      LIPP2P_FORCE_PNET: '1'
+    networks:
+      - mynetwork
+    ports:
+      - 4002:4001
+      - 9097:8080
+      - 5002:5001
+    volumes:
+      - ./ipfs-node-setup/private-network/.ipfs/swarm.key:/data/ipfs/swarm.key
+      - ./ipfs-node-setup/private-network/init.sh:/usr/local/bin/start_ipfs
+      - ./ipfs-node-setup/private-network/node2/staging_dir:/export
+      - ./ipfs-node-setup/private-network/node2/data_dir:/data/ipfs
+
+  node-3:
+    image: ipfs/go-ipfs:0.4.16
+    container_name: "ipfs-node-3"
+    build:
+      context: ./ipfs-node-setup/private-network
+    environment:
+      LIPP2P_FORCE_PNET: '1'
+    networks:
+      - mynetwork
+    ports:
+      - 4003:4001
+      - 9098:8080
+      - 5003:5001
+    volumes:
+      - ./ipfs-node-setup/private-network/.ipfs/swarm.key:/data/ipfs/swarm.key
+      - ./ipfs-node-setup/private-network/init.sh:/usr/local/bin/start_ipfs
+      - ./ipfs-node-setup/private-network/node3/staging_dir:/export
+      - ./ipfs-node-setup/private-network/node3/data_dir:/data/ipfs
+
+  privateipfs:
+    build:
+      context: ./
+    image: private-ipfs:latest
+    container_name: "privateipfs"
+    ports:
+      - 8090:8090
+    volumes:
+      - ./upload:/out/ipfs/upload
+    environment:
+      - IPFS_BIND_IP=ipfs-node-1
+    networks:
+      - mynetwork
+    depends_on:
+      - node-1
+
+networks:
+  mynetwork:
+    external: true

@@ -1,0 +1,128 @@
+{
+  "Identity": {
+    "PeerID": "QmWwpqvFv8P69effPFUfiN2rQqXMcwYDgFemCEBib6XApa",
+    "PrivKey": "CAASpgkwggSiAgEAAoIBAQCxmIgyuBkZR0GGmDagJ+pwFdrrHeeCFi/Zlz+ZKu4hQnwOMM82qhZv/x1/3Vz2JzK5+k9biI9jLhZi9ha+IzSk9akYDgHveS7idj8qUPrLkRN8+WiQiyY71imp3Bt62Lw09CqQgLyfQYLLH0pRR/zVxR/hAJo+Zl4HOzRpR4ns1oTLEfUQ19zapPRHb15Dyk10BEyhVEgrajZ4HjC95ZVz6yHLq+CyJQAxmo2KIQxSVS63+vf+lnuPNE/gncz0nMSJQPrNf0h/VJi9Q//wHvFw3QnlOAb/TcjA6pDM9+GH6N02xED+jZfzFFWSmcY/8b/edx+NkHNlvF8qdzj0Y3YhAgMBAAECggEAel/XodNXgCKolT03jt5SXg/BPPfrOaleKXpeGYYKdqKgZwrdDhbfxSauxhfb4cYa3yoLGtCbtUThqilWfIg3019vuCKW1NPVKbk/R0Jrvm/mVNxrYAZyPxMQvHnt+ZV1Aqwo1E/RKY/zt1GFXULUht0BXYKTxmG1cxgpwk3ITYhRonBtmco5s62oQcVCPyrYVpQpsSZ3UupRBRHsbp8+UcharpTjh4RhUECdoH3rjqlgv6ebsYcqeEqcARvkIXL5RQ24O3ggaVs5wdc41uONhvLijdy94NE4AGTor2bTWgee0PeSpz0w8IV5t3lazBSKtIYujJTp4nUzoeN89V4jUQKBgQDjHKeaH1MBM0Q2CwflIatTCtD3XXB9hCaxVl0od4upf3IOcLNytfCN9YTmdTxuW5gkfIO8QkMI9L13MeCyQyUhSbsQfzrGKmIAUC5N6ZrUnRZlkMkNCuwGQ1rwnbuUA9Fc4Kj7LNNl/ZlRRXPP6MiGhoNJ8EP9NFp/25ylgLou/QKBgQDIL4GgLQx0T6Id48179DbNMCP/TQQKAC6NIlOwQz8eommTBiqu9Zb+oEbByuwzoqn5KFHrP5hI3dxhMiqF8jSCNy25I355T1fbi4bRvfmhoPawNR9qWRDgok0p36is/1U8bnJH0NUge8MZxQWGBVoP+7K3QN2E/IxNniqHyrHW9QKBgAKN0vCvw34y9mRpMViJTWTsrTbq7RXsQ4chAoEu/voT/dNdvxbeJuthxHHXBav0Cbz3TX/zes+B+RN7ExzOFn/OVXU1CRMrbNi2Dh9ALkaP0a2ouCoWYlsbrM0h6PccJ+GUgTH56hKujGfWkRvYcVDZ+GX/drRFP3NKo/NUhEN9AoGAIpSaRsohYaIz9gfZAjWQledgAIUUUonvgK/SVxt2ttsFc8FX9Ds2ZyvWrTlZjh3mUMUXSZUFwGia3itlTxgk2+2eN2IbQedj3OgAVREFI1eD5bJ3h8507Oj8fWRGZgQBfFvz39YCSwc2D6iKKLmZ8jLfj2pkGcnqjqno3OY1zFUCgYAdMGECwaK8DWfDDoOFxiSkgJdeIIY9ZMhsO4E8VD71DC2g0ktWltIpCq4DQo8M3Rm6OLMv7DEMcoSFK11pwAkSfwBR3TI9+O138ZIJyGERgNQOdRMm767+lfoEoVBoNDvgN8bgr4OBOO7SsVB0pS6vy09jb+50b2lhiqOlsbZJpQ=="
+  },
+  "Datastore": {
+    "StorageMax": "10GB",
+    "StorageGCWatermark": 90,
+    "GCPeriod": "1h",
+    "Spec": {
+      "mounts": [
+        {
+          "child": {
+            "path": "blocks",
+            "shardFunc": "/repo/flatfs/shard/v1/next-to-last/2",
+            "sync": true,
+            "type": "flatfs"
+          },
+          "mountpoint": "/blocks",
+          "prefix": "flatfs.datastore",
+          "type": "measure"
+        },
+        {
+          "child": {
+            "compression": "none",
+            "path": "datastore",
+            "type": "levelds"
+          },
+          "mountpoint": "/",
+          "prefix": "leveldb.datastore",
+          "type": "measure"
+        }
+      ],
+      "type": "mount"
+    },
+    "HashOnRead": false,
+    "BloomFilterSize": 0
+  },
+  "Addresses": {
+    "Swarm": [
+      "/ip4/0.0.0.0/tcp/4002",
+      "/ip6/::/tcp/4002"
+    ],
+    "Announce": [],
+    "NoAnnounce": [],
+    "API": "/ip4/127.0.0.1/tcp/5002",
+    "Gateway": "/ip4/127.0.0.1/tcp/9097"
+  },
+  "Mounts": {
+    "IPFS": "/ipfs",
+    "IPNS": "/ipns",
+    "FuseAllowOther": false
+  },
+  "Discovery": {
+    "MDNS": {
+      "Enabled": true,
+      "Interval": 10
+    }
+  },
+  "Routing": {
+    "Type": "dht"
+  },
+  "Ipns": {
+    "RepublishPeriod": "",
+    "RecordLifetime": "",
+    "ResolveCacheSize": 128
+  },
+  "Bootstrap": [
+    "/ip4/127.0.0.1/tcp/4001/ipfs/QmRSKHHuiyJqX14XStkoBJUn7xJCZZEBcYfeCGdJturLDr",
+    "/ip4/127.0.0.1/tcp/4003/ipfs/QmYXaAu2Sz7wzPc1UmeUooFVZVzzfpsrNSaNSKLwZytf72"
+  ],
+  "Gateway": {
+    "HTTPHeaders": {
+      "Access-Control-Allow-Headers": [
+        "X-Requested-With",
+        "Range",
+        "User-Agent"
+      ],
+      "Access-Control-Allow-Methods": [
+        "GET"
+      ],
+      "Access-Control-Allow-Origin": [
+        "*"
+      ]
+    },
+    "RootRedirect": "",
+    "Writable": false,
+    "PathPrefixes": [],
+    "APICommands": [],
+    "NoFetch": false
+  },
+  "API": {
+    "HTTPHeaders": {}
+  },
+  "Swarm": {
+    "AddrFilters": null,
+    "DisableBandwidthMetrics": false,
+    "DisableNatPortMap": false,
+    "DisableRelay": false,
+    "EnableRelayHop": false,
+    "EnableAutoRelay": false,
+    "EnableAutoNATService": false,
+    "ConnMgr": {
+      "Type": "basic",
+      "LowWater": 600,
+      "HighWater": 900,
+      "GracePeriod": "20s"
+    }
+  },
+  "Pubsub": {
+    "Router": "",
+    "DisableSigning": false,
+    "StrictSignatureVerification": false
+  },
+  "Reprovider": {
+    "Interval": "12h",
+    "Strategy": "all"
+  },
+  "Experimental": {
+    "FilestoreEnabled": false,
+    "UrlstoreEnabled": false,
+    "ShardingEnabled": false,
+    "Libp2pStreamMounting": false,
+    "P2pHttpProxy": false,
+    "QUIC": false,
+    "PreferTLS": false
+  }
+}
